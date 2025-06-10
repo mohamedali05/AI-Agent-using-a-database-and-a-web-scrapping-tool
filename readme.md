@@ -1,13 +1,13 @@
 # Project Setup Guide
 
-This project utilizes [n8n](https://n8n.io), a powerful workflow automation tool. It creates an AI agent capable of scrapping data from a sample faq website (https://www.motivi.com/fr_FR/faq) open to web-scrapping and accessing a Postgres database through an MCP server.
+This project utilizes [n8n](https://n8n.io), a powerful workflow automation tool. It creates an AI agent capable of scrapping data from a [sample faq website](https://www.motivi.com/fr_FR/faq) open to web-scrapping and accessing a Postgres database through an MCP server.
 
 ## Prerequisites
 
 Before getting started, ensure you have the following installed on your system:
 
 - **Docker**: [Download and install Docker](https://docs.docker.com/get-docker/)
-- **Git**: For cloning the repository
+- **[Git](https://git-scm.com/)** – for cloning the repository
 
 ## Getting Started
 
