@@ -6,8 +6,8 @@ This project utilizes [n8n](https://n8n.io), a powerful workflow automation tool
 
 Before getting started, ensure you have the following installed on your system:
 
-- **Docker**: [Download and install Docker](https://docs.docker.com/get-docker/)
-- **[Git](https://git-scm.com/)** – for cloning the repository
+- **[Docker](https://docs.docker.com/get-docker/)**
+- **[Git](https://git-scm.com/)**
 
 ## Getting Started
 
@@ -40,6 +40,7 @@ This command will:
 - Run the container interactively
 
 ### step 3 : copy the workflow : 
+
 Once n8n is running:
 - Create a new workflow via the n8n interface.
 
