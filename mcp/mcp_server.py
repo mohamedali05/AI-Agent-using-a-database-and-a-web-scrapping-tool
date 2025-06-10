@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import Dict, Any
 from dataclasses import dataclass
 from contextlib import asynccontextmanager
@@ -8,23 +9,21 @@ import httpx
 from mcp.server.fastmcp import FastMCP, Context
 import time
 
-
 time.sleep(6)
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
-
-# Configuration basique
-API_URL = "http://api:5000/products" 
+# Configuration depuis les variables d'environnement
+API_PORT = os.getenv("API_PORT", "5000")
+MCP_PORT = int(os.getenv("MCP_PORT", "5001"))
+API_BASE_URL = f"http://api:{API_PORT}"
 
 @dataclass
 class AppContext:
     """Contexte de l'application MCP"""
     session: httpx.AsyncClient
-
 
 @asynccontextmanager
 async def app_lifespan(_: FastMCP) -> AsyncIterator[AppContext]:
@@ -34,17 +33,15 @@ async def app_lifespan(_: FastMCP) -> AsyncIterator[AppContext]:
         yield AppContext(session=session)
     logger.info("Client HTTP fermé.")
 
-
 # Création du serveur MCP simple
 mcp = FastMCP(
     "MCP Produits Beauté",
     description="Expose un outil de récupération de produits via une API Flask",
     version="0.1.0",
     lifespan=app_lifespan,
-    port =5001,  # Port du serveur MCP (peut être modifié)
-    host="localhost",  # Hôte du serveur MCP
+    port=MCP_PORT,
+    host="0.0.0.0",  # Changé pour être accessible depuis l'extérieur du conteneur
 )
-
 
 @mcp.tool()
 async def get_products(ctx: Context = None) -> Dict[str, Any]:
@@ -56,7 +53,7 @@ async def get_products(ctx: Context = None) -> Dict[str, Any]:
     """
     session = ctx.request_context.lifespan_context.session
     try:
-        response = await session.get(API_URL)
+        response = await session.get(f"{API_BASE_URL}/products")
         response.raise_for_status()
         data = response.json()
         return {"products": data, "count": len(data)}
@@ -69,7 +66,7 @@ async def search_product_by_name(name: str, ctx: Context = None) -> Dict[str, An
     """Recherche les produits dont le nom contient la chaîne donnée (insensible à la casse)."""
     session = ctx.request_context.lifespan_context.session
     try:
-        response = await session.get(f"{API_URL.rstrip('/products')}/product/{name}")
+        response = await session.get(f"{API_BASE_URL}/product/{name}")
         response.raise_for_status()
         data = response.json()
         return {"results": data, "count": len(data)}
@@ -77,13 +74,12 @@ async def search_product_by_name(name: str, ctx: Context = None) -> Dict[str, An
         logger.error(f"Erreur lors de la recherche de produit: {str(e)}")
         return {"error": str(e), "results": [], "count": 0}
 
-
 @mcp.tool()
 async def get_stores(ctx: Context = None) -> Dict[str, Any]:
     """Récupère la liste des magasins."""
     session = ctx.request_context.lifespan_context.session
     try:
-        response = await session.get("http://api:5000/stores")
+        response = await session.get(f"{API_BASE_URL}/stores")
         response.raise_for_status()
         data = response.json()
         return {"stores": data, "count": len(data)}
@@ -91,13 +87,12 @@ async def get_stores(ctx: Context = None) -> Dict[str, Any]:
         logger.error(f"Erreur lors de la récupération des magasins: {str(e)}")
         return {"error": str(e), "stores": [], "count": 0}
 
-
 @mcp.tool()
 async def search_store_by_name(name: str, ctx: Context = None) -> Dict[str, Any]:
     """Recherche les magasins dont le nom contient la chaîne donnée (insensible à la casse)."""
     session = ctx.request_context.lifespan_context.session
     try:
-        response = await session.get(f"http://api:5000/store/{name}")
+        response = await session.get(f"{API_BASE_URL}/store/{name}")
         response.raise_for_status()
         data = response.json()
         return {"results": data, "count": len(data)}
@@ -105,13 +100,12 @@ async def search_store_by_name(name: str, ctx: Context = None) -> Dict[str, Any]
         logger.error(f"Erreur lors de la recherche de magasin: {str(e)}")
         return {"error": str(e), "results": [], "count": 0}
 
-
 @mcp.tool()
 async def get_store_products(ctx: Context = None) -> Dict[str, Any]:
     """Récupère tous les produits en stock dans tous les magasins."""
     session = ctx.request_context.lifespan_context.session
     try:
-        response = await session.get("http://api:5000/store-products")
+        response = await session.get(f"{API_BASE_URL}/store-products")
         response.raise_for_status()
         data = response.json()
         return {"stocks": data, "count": len(data)}
@@ -119,21 +113,18 @@ async def get_store_products(ctx: Context = None) -> Dict[str, Any]:
         logger.error(f"Erreur lors de la récupération des stocks: {str(e)}")
         return {"error": str(e), "stocks": [], "count": 0}
 
-
 @mcp.tool()
 async def search_store_products(store_name: str, ctx: Context = None) -> Dict[str, Any]:
     """Récupère les produits disponibles dans un magasin donné (nom partiel accepté, insensible à la casse)."""
     session = ctx.request_context.lifespan_context.session
     try:
-        response = await session.get(f"http://api:5000/store-products/{store_name}")
+        response = await session.get(f"{API_BASE_URL}/store-products/{store_name}")
         response.raise_for_status()
         data = response.json()
         return {"products": data, "count": len(data)}
     except Exception as e:
         logger.error(f"Erreur lors de la récupération des produits pour le magasin '{store_name}': {str(e)}")
         return {"error": str(e), "products": [], "count": 0}
-
-
 
 def run_server(transport: str = "sse") -> None:
     """Point d'entrée pour exécuter le serveur MCP."""
@@ -143,7 +134,6 @@ def run_server(transport: str = "sse") -> None:
         logger.info("Arrêt manuel du serveur MCP")
     except Exception as e:
         logger.error(f"Erreur au démarrage du serveur: {str(e)}")
-
 
 if __name__ == "__main__":
     run_server()

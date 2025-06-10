@@ -6,14 +6,16 @@ import time
 time.sleep(5)
 app = Flask(__name__)
 
-
+# Configuration depuis les variables d'environnement
 host = os.getenv("DB_HOST", "localhost")
+api_port = int(os.getenv("API_PORT", "5000"))
+
 # Connect to your local PostgreSQL
 conn = psycopg2.connect(
     dbname="postgres",  
     user="postgres",
     password="3Gy5uwht4*",
-    host= host,  
+    host=host,  
     port="5432"
 )
 
@@ -109,5 +111,10 @@ def get_store_products_by_store_name(store_name):
     rows = cur.fetchall()
     cur.close()
 
+    if not rows:
+        return jsonify({"error": "No products found for this store"}), 404
+
+    return jsonify([{"product": row[0], "stock_unit": row[1]} for row in rows])
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=api_port, debug=True)

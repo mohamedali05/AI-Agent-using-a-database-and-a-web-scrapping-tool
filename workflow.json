@@ -10,8 +10,8 @@
       "name": "AI Agent",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "position": [
-        940,
-        -240
+        920,
+        0
       ],
       "typeVersion": 1.8
     },
@@ -23,8 +23,8 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "position": [
-        740,
-        -240
+        720,
+        0
       ],
       "webhookId": "7b02318f-1c6b-4f2a-9a4f-b17fa69ea680",
       "typeVersion": 1.1
@@ -35,8 +35,8 @@
       "name": "Simple Memory",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "position": [
-        1040,
-        -20
+        1020,
+        220
       ],
       "typeVersion": 1.3
     },
@@ -54,8 +54,8 @@
       "name": "OpenAI 4o",
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "position": [
-        900,
-        -20
+        880,
+        220
       ],
       "typeVersion": 1.2,
       "credentials": {
@@ -67,13 +67,13 @@
     },
     {
       "parameters": {
-        "sseEndpoint": "http://host.docker.internal:5001/sse"
+        "sseEndpoint": "http://host.docker.internal:5002/sse"
       },
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1420,
-        -20
+        1400,
+        220
       ],
       "id": "c506c14a-922a-4c8a-835a-12dc228c0873",
       "name": "MCP Client"
@@ -313,8 +313,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
       "typeVersion": 1,
       "position": [
-        1140,
-        -20
+        1120,
+        220
       ]
     },
     {
@@ -326,8 +326,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.1,
       "position": [
-        1100,
-        260
+        1080,
+        500
       ],
       "credentials": {
         "openAiApi": {
@@ -345,8 +345,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
       "position": [
-        1380,
-        140
+        1360,
+        380
       ],
       "credentials": {
         "openAiApi": {
@@ -372,8 +372,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1,
       "position": [
-        1080,
-        140
+        1060,
+        380
       ],
       "credentials": {
         "supabaseApi": {
@@ -381,37 +381,6 @@
           "name": "Supabase account 2"
         }
       }
-    },
-    {
-      "parameters": {
-        "content": "## Scrapping a website and storing the encoded vectors in a database\n",
-        "height": 780,
-        "width": 2280
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        520,
-        700
-      ],
-      "id": "711b45ef-4417-490b-a147-43d5329dac98",
-      "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "content": "## chat bot\n",
-        "height": 740,
-        "width": 1440,
-        "color": 5
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        400,
-        -340
-      ],
-      "id": "c600453a-21f2-4d0f-ad36-33910ce23c6d",
-      "name": "Sticky Note1"
     }
   ],
   "connections": {
