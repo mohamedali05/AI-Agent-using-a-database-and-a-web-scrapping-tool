@@ -15,8 +15,8 @@ Before getting started, ensure you have the following installed on your system:
 First, clone the project repository to your local machine:
 
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone "https://github.com/mohamedali05/AI-Agent-using-a-database-and-a-web-scrapping-tool"
+cd AI-Agent-using-a-database-and-a-web-scrapping-tool
 ```
 
 ### Step 2: Launch the n8n Container
@@ -62,7 +62,4 @@ Set up your Supabase database connection using the following credentials:
   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwdnFnbmhqemZ6ZHR5aW96cmpxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODkzNjkwOCwiZXhwIjoyMDY0NTEyOTA4fQ.nuQNiT43OWzvdsvHRfxOORds1v-t8XmXsV1F5Pszgec
   ```
 
-
-
-### step 6 : 
-Chat and play with the AI Agent 
+### step 6 : Step 6: Interact with the AI Agent ! 
