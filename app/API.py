@@ -21,6 +21,10 @@ conn = psycopg2.connect(
 
 # === 1. TABLE Product ===
 
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({"message": "API is running."})
+
 @app.route("/products", methods=["GET"])
 def get_all_products():
     cur = conn.cursor()

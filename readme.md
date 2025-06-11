@@ -16,8 +16,12 @@ Before getting started, ensure you have the following installed on your system:
 First, clone the project repository to your local machine:
 
 ```bash
-- **[Docker](https://docs.docker.com/get-docker/)** – for running containers  
-- **[Git](https://git-scm.com/)** – for cloning the repository
+git clone "https://github.com/mohamedali05/AI-Agent-using-a-database-and-a-web-scrapping-tool"
+```
+
+
+```bash
+cd AI-Agent-using-a-database-and-a-web-scrapping-tool
 ```
 
 

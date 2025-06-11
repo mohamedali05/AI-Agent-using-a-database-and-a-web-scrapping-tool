@@ -40,7 +40,7 @@ mcp = FastMCP(
     version="0.1.0",
     lifespan=app_lifespan,
     port=MCP_PORT,
-    host="0.0.0.0",  # Changé pour être accessible depuis l'extérieur du conteneur
+    host="0.0.0.0", 
 )
 
 @mcp.tool()
