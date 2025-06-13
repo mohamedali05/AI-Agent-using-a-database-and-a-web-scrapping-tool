@@ -2,41 +2,31 @@
   "nodes": [
     {
       "parameters": {
+        "hasOutputParser": true,
         "options": {
-          "systemMessage": "=You are a helpful assistant.\nCurrent datetime is {{ $now.toString() }}"
+          "systemMessage": "=Tu es un assistant qui travaille dans une boutique de beauté. "
         }
       },
-      "id": "c47ec687-154a-4f91-8204-0b82997ecf84",
+      "id": "79538e4f-8bdc-4b16-9381-8823e2e70b96",
       "name": "AI Agent",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "position": [
-        920,
-        0
+        -380,
+        -200
       ],
       "typeVersion": 1.8
     },
     {
       "parameters": {
-        "options": {}
+        "sessionIdType": "customKey",
+        "sessionKey": "=a"
       },
-      "id": "d58f3849-4f99-4efd-b122-a810a822d7ad",
-      "name": "When chat message received",
-      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
-      "position": [
-        720,
-        0
-      ],
-      "webhookId": "7b02318f-1c6b-4f2a-9a4f-b17fa69ea680",
-      "typeVersion": 1.1
-    },
-    {
-      "parameters": {},
-      "id": "021c6024-e960-4739-b728-36c4fd6f5c43",
+      "id": "0eb5484a-71eb-4c51-b689-9412b7eb6ecf",
       "name": "Simple Memory",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "position": [
-        1020,
-        220
+        -380,
+        20
       ],
       "typeVersion": 1.3
     },
@@ -50,12 +40,12 @@
         },
         "options": {}
       },
-      "id": "10c1e329-0f7f-4e2a-8342-fe0bb4e9af1b",
+      "id": "2cc075e9-63cb-4582-9d09-0850d71b00df",
       "name": "OpenAI 4o",
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "position": [
-        880,
-        220
+        -540,
+        -40
       ],
       "typeVersion": 1.2,
       "credentials": {
@@ -67,37 +57,100 @@
     },
     {
       "parameters": {
-        "sseEndpoint": "http://host.docker.internal:5002/sse"
+        "sseEndpoint": "http://host.docker.internal:5004/sse"
       },
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1400,
-        220
+        -220,
+        80
       ],
-      "id": "c506c14a-922a-4c8a-835a-12dc228c0873",
+      "id": "ee30ac37-63ff-4f2f-9d3c-27573570119c",
       "name": "MCP Client"
     },
     {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8bc01e5b-13ba-48c1-bb6e-d2e22037027c",
+      "name": "Embeddings OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        200
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "qvokhQ1tdkQWuajl",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "MAgasin_FAQ",
+        "toolDescription": "Retrouve des informations basées sur la FAQ des magasins.",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "id": "3cb31fe5-986f-4041-b2b5-21ae8dfe2fe1",
+      "name": "Supabase Vector Store1",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        0
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "M0Vi4A4xUU7FnSiB",
+          "name": "Supabase account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -660,
+        -200
+      ],
+      "id": "01ed72fb-b426-4b41-953b-f9873f60fb63",
+      "name": "When chat message received",
+      "webhookId": "c2604b84-2e17-45a3-bf48-e990b9ad7235"
+    },
+    {
       "parameters": {},
-      "id": "85ab7313-b453-45ff-af64-ed812e035601",
+      "id": "8692d966-3e9b-41a3-bfbc-51b9f95a97fa",
       "name": "When clicking ‘Test workflow’",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        800,
-        980
+        -620,
+        900
       ]
     },
     {
       "parameters": {},
-      "id": "3846f5ab-6361-4976-b5a2-73c1b68943ad",
+      "id": "c4871f4d-f06e-491f-9284-2c1d4f345555",
       "name": "Wait",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1540,
-        980
+        -120,
+        900
       ],
       "webhookId": "9af87c5e-b07f-48dc-9ca8-61b471a24cad"
     },
@@ -122,13 +175,13 @@
         },
         "options": {}
       },
-      "id": "7026be27-dca0-4cf1-88f7-1a7e65241af6",
+      "id": "a66a22d0-006e-4c66-abbf-6fa1cc499679",
       "name": "HTTP Request1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1340,
-        980
+        -320,
+        900
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -146,13 +199,13 @@
           "timeout": 5000
         }
       },
-      "id": "220a302e-98dc-4c7e-a90d-2b04f2674571",
+      "id": "3436db9f-04c9-4a7d-ac8f-24e760732b86",
       "name": "HTTP Request2",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1760,
-        980
+        100,
+        900
       ],
       "retryOnFail": true,
       "waitBetweenTries": 5000,
@@ -187,13 +240,13 @@
         },
         "options": {}
       },
-      "id": "3e903ae9-913f-473a-af7e-f409d27cbfd6",
+      "id": "42bf9cdb-b009-4f55-a0c7-b61715faac80",
       "name": "If",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1980,
-        980
+        320,
+        900
       ]
     },
     {
@@ -211,39 +264,39 @@
           }
         }
       },
-      "id": "2ee7d4e7-7449-4c6c-a680-008693d0dd35",
+      "id": "f6168233-0081-4700-b6f8-72f49e3dc875",
       "name": "Default Data Loader",
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1,
       "position": [
-        2360,
-        980
+        700,
+        900
       ]
     },
     {
       "parameters": {
         "chunkSize": 5000
       },
-      "id": "6dce4d69-65c9-40de-9409-d74efb966416",
+      "id": "96337321-9e65-4df5-a750-e04e8c033486",
       "name": "Character Text Splitter",
       "type": "@n8n/n8n-nodes-langchain.textSplitterCharacterTextSplitter",
       "typeVersion": 1,
       "position": [
-        2500,
-        1120
+        840,
+        1040
       ]
     },
     {
       "parameters": {
         "options": {}
       },
-      "id": "2981c2a6-104b-4660-8eba-9f41595fe1c3",
+      "id": "a5f6fcaa-809f-4427-b67b-ad1d97292464",
       "name": "Embeddings OpenAI",
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.1,
       "position": [
-        2200,
-        980
+        540,
+        900
       ],
       "credentials": {
         "openAiApi": {
@@ -266,13 +319,13 @@
         },
         "options": {}
       },
-      "id": "5e368b6b-f3ff-464d-b29c-d2ce21c4ea50",
+      "id": "234bfa9a-b6fa-4899-bffc-ccf1a61f4f9f",
       "name": "Edit Fields",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        2220,
-        1180
+        560,
+        1100
       ]
     },
     {
@@ -288,13 +341,13 @@
           "queryName": "match_documents"
         }
       },
-      "id": "962fff61-f7fd-48c5-8fbc-0c294dfe42c9",
+      "id": "432a6aee-91c0-40d7-9b3e-442db65a53c8",
       "name": "Supabase Vector Store",
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1,
       "position": [
-        2220,
-        760
+        560,
+        680
       ],
       "credentials": {
         "supabaseApi": {
@@ -305,94 +358,40 @@
     },
     {
       "parameters": {
-        "name": "pydantic_ai_docs",
-        "description": "Retrouve des informations basées sur la FAQ des magasins."
+        "content": "## Web-scrapping:\nThis section is how we have proceed to scrap through the website. If you just want to interact with the AI Agent,you may disregard it.\n ",
+        "height": 840,
+        "width": 1860
       },
-      "id": "090aa3c4-2d4c-42df-bb55-c7b4e3c01f7f",
-      "name": "Vector Store Tool",
-      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1120,
-        220
-      ]
+        -840,
+        580
+      ],
+      "id": "b2c43f12-61e6-4eea-876f-ca1b191fa035",
+      "name": "Sticky Note"
     },
     {
       "parameters": {
-        "options": {}
+        "content": "## AI Agent\nHere is the AI agent. Don't forget to activate the workflow via the toggle on the right top corner of the screen through the web-based user interface. ",
+        "height": 680,
+        "width": 1320,
+        "color": 5
       },
-      "id": "d2e9b46c-e9d7-4d7d-ac0d-9d1be4d9541d",
-      "name": "Embeddings OpenAI1",
-      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
-      "typeVersion": 1.1,
-      "position": [
-        1080,
-        500
-      ],
-      "credentials": {
-        "openAiApi": {
-          "id": "qvokhQ1tdkQWuajl",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "0ef4e82f-c6f7-4e7c-9e4d-1bd6fe4c99e7",
-      "name": "OpenAI Chat Model1",
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1360,
-        380
+        -980,
+        -340
       ],
-      "credentials": {
-        "openAiApi": {
-          "id": "qvokhQ1tdkQWuajl",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "tableName": {
-          "__rl": true,
-          "value": "documents",
-          "mode": "list",
-          "cachedResultName": "documents"
-        },
-        "options": {
-          "queryName": "match_documents"
-        }
-      },
-      "id": "a2362704-4ba1-4f2d-b4a9-cfbb43f7e701",
-      "name": "Supabase Vector Store1",
-      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
-      "typeVersion": 1,
-      "position": [
-        1060,
-        380
-      ],
-      "credentials": {
-        "supabaseApi": {
-          "id": "M0Vi4A4xUU7FnSiB",
-          "name": "Supabase account 2"
-        }
-      }
+      "id": "67447850-9c2c-48d8-ac54-658d785d19e0",
+      "name": "Sticky Note1"
     }
   ],
   "connections": {
-    "When chat message received": {
+    "AI Agent": {
       "main": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Simple Memory": {
@@ -423,6 +422,42 @@
           {
             "node": "AI Agent",
             "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store1": {
+      "ai_vectorStore": [
+        []
+      ],
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
             "index": 0
           }
         ]
@@ -529,50 +564,6 @@
           {
             "node": "Wait",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Vector Store Tool": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Embeddings OpenAI1": {
-      "ai_embedding": [
-        [
-          {
-            "node": "Supabase Vector Store1",
-            "type": "ai_embedding",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "OpenAI Chat Model1": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Vector Store Tool",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Supabase Vector Store1": {
-      "ai_vectorStore": [
-        [
-          {
-            "node": "Vector Store Tool",
-            "type": "ai_vectorStore",
             "index": 0
           }
         ]

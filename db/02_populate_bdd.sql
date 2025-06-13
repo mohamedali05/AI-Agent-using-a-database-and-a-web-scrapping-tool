@@ -1,6 +1,6 @@
 -- filepath: c:\PostGress_Database\populate_bdd.sql
 -- Insert beauty products
-INSERT INTO Product (nom, description, ingrédients, prix) VALUES
+INSERT INTO Product (nom, description, ingredients, prix) VALUES
 ('Crème Hydratante', 'Crème visage hydratante pour peau sèche', 'acide hyaluronique, aloé vera, vitamine E', 14.90),
 ('Shampooing Bio', 'Shampooing doux sans sulfates', 'huile d’argan, camomille, extraits de bambou', 9.50),
 ('Masque Capillaire', 'Masque réparateur pour cheveux abîmés', 'kératine, beurre de karité, huile de coco', 12.75),

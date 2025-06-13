@@ -11,7 +11,7 @@ CREATE TABLE Product (
     id SERIAL PRIMARY KEY,
     nom TEXT NOT NULL,
     description TEXT,
-    ingrédients TEXT,
+    ingredients TEXT,
     prix NUMERIC(10, 2) NOT NULL
 );
 

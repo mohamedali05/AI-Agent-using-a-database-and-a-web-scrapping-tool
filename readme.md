@@ -84,4 +84,24 @@ Set up your Supabase database connection using the following credentials:
   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwdnFnbmhqemZ6ZHR5aW96cmpxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0ODkzNjkwOCwiZXhwIjoyMDY0NTEyOTA4fQ.nuQNiT43OWzvdsvHRfxOORds1v-t8XmXsV1F5Pszgec
   ```
 
-### step 6 : Interact with the AI Agent ! 
+### Optional : Configure your ports 
+If the default ports are already in use on your machine, you can easily update them:
+
+- **Edit the .env file** located in the project root:
+
+- Change the port numbers defined there.
+
+- If you have modified the MCP server's port, be sure to update it in the "MCP Client Tool" node within the n8n workflow (see the image below for reference).
+
+<p align="center">
+  <img src="images/MCP_node_n8n.png" alt="n8n workflow demo" width="200"/>
+</p>
+
+### step 7 : Interact with the AI Agent ! 
+
+
+You can test the AI agent either directly within the n8n workflow or through a simple web interface:
+
+- **First**, make sure to **activate the workflow** (using the toggle switch at the top right of the n8n editor).
+
+-  Then, open the `index.html` file located in the `front-end/` folder with your browser to interact with the agent via the web demo.

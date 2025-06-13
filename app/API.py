@@ -8,9 +8,10 @@ app = Flask(__name__)
 
 # Configuration depuis les variables d'environnement
 host = os.getenv("DB_HOST", "localhost")
-api_port = int(os.getenv("API_PORT", "5000"))
+api_port = int(os.getenv("API_PORT"))
+print(f"API_PORT: {api_port}")
 
-# Connect to your local PostgreSQL
+# Connexion à la base de données PostgreSQL
 conn = psycopg2.connect(
     dbname="postgres",  
     user="postgres",
@@ -20,10 +21,6 @@ conn = psycopg2.connect(
 )
 
 # === 1. TABLE Product ===
-
-@app.route("/", methods=["GET"])
-def home():
-    return jsonify({"message": "API is running."})
 
 @app.route("/products", methods=["GET"])
 def get_all_products():

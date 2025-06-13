@@ -17,7 +17,9 @@ logger = logging.getLogger(__name__)
 
 # Configuration depuis les variables d'environnement
 API_PORT = os.getenv("API_PORT", "5000")
+print(f"API_PORT: {API_PORT}")
 MCP_PORT = int(os.getenv("MCP_PORT", "5001"))
+print(f"MCP_PORT: {MCP_PORT}")
 API_BASE_URL = f"http://api:{API_PORT}"
 
 @dataclass
